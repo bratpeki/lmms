@@ -1,0 +1,19 @@
+INCLUDE(BuildPlugin)
+
+BUILD_PLUGIN(WaveAnalyzer
+	WaveAnalyzer.cpp
+	WaveAnalyzerControls.cpp
+	WaveAnalyzerControlDialog.cpp
+	WaveAnalyzerLevelIndicator.cpp
+	WaveAnalyzerClipIndicator.cpp
+	WaveAnalyzerOsc.cpp
+	MOCFILES
+	WaveAnalyzer.h
+	WaveAnalyzerControls.h
+	WaveAnalyzerControlDialog.h
+	WaveAnalyzerLevelIndicator.h
+	WaveAnalyzerClipIndicator.h
+	WaveAnalyzerOsc.h
+	EMBEDDED_RESOURCES
+	*.png
+)
