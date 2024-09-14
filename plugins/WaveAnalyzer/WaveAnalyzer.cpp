@@ -72,22 +72,8 @@ bool WaveAnalyzerEffect::processAudioBuffer(SampleFrame* buf, const fpp_t frames
 
 	for (fpp_t f = 0; f < frames; ++f)
 	{
-		const float volume = (volumeBuf ? volumeBuf->value(f) : m_ampControls.m_volumeModel.value()) * 0.01f;
-		const float pan = (panBuf ? panBuf->value(f) : m_ampControls.m_panModel.value()) * 0.01f;
-		const float left = (leftBuf ? leftBuf->value(f) : m_ampControls.m_leftModel.value()) * 0.01f;
-		const float right = (rightBuf ? rightBuf->value(f) : m_ampControls.m_rightModel.value()) * 0.01f;
-
-		const float panLeft = std::min(1.0f, 1.0f - pan);
-		const float panRight = std::min(1.0f, 1.0f + pan);
-
-		auto& currentFrame = buf[f];
-
-		const auto s = currentFrame * SampleFrame(left * panLeft, right * panRight) * volume;
-
-		// Dry/wet mix
-		currentFrame = currentFrame * d + s * w;
-
-		outSum += currentFrame.sumOfSquaredAmplitudes();
+		m_ampControls.m_ampBufferL[f] = buf[f][0];
+		m_ampControls.m_ampBufferR[f] = buf[f][1];
 	}
 
 	checkGate(outSum / frames);

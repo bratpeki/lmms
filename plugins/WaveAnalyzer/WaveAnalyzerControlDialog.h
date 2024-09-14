@@ -42,6 +42,10 @@ class Knob;
 class WaveAnalyzerControlDialog : public EffectControlDialog
 {
 	Q_OBJECT
+private:
+	WaveAnalyzerControls* m_controls;
+public slots:
+	void updateDisplay();
 public:
 	WaveAnalyzerControlDialog(WaveAnalyzerControls* controls);
 	~WaveAnalyzerControlDialog() override = default;

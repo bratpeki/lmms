@@ -26,6 +26,8 @@
 #ifndef LMMS_WAVE_ANALYZER_CONTROLS_H
 #define LMMS_WAVE_ANALYZER_CONTROLS_H
 
+#define BUFFER_MAX_SIZE 88200
+
 #include "EffectControls.h"
 #include "WaveAnalyzerControlDialog.h"
 
@@ -33,11 +35,6 @@ namespace lmms
 {
 
 class WaveAnalyzerEffect;
-
-namespace gui
-{
-class WaveAnalyzerControlDialog;
-}
 
 class WaveAnalyzerControls : public EffectControls
 {
@@ -53,17 +50,23 @@ public:
 		return "WaveAnalyzerControls";
 	}
 	gui::EffectControlDialog* createView() override
-	{
-		return new gui::WaveAnalyzerControlDialog(this);
-	}
+    {
+        m_view = new gui::WaveAnalyzerControlDialog(this);
+        return m_view;
+    }
 	int controlCount() override { return 4; }
 
 private:
+
+	gui::WaveAnalyzerControlDialog* m_view;
 	WaveAnalyzerEffect* m_effect;
 	FloatModel m_volumeModel;
 	FloatModel m_panModel;
 	FloatModel m_leftModel;
 	FloatModel m_rightModel;
+
+	float m_ampBufferL[BUFFER_MAX_SIZE];
+	float m_ampBufferR[BUFFER_MAX_SIZE];
 
 	friend class gui::WaveAnalyzerControlDialog;
 	friend class WaveAnalyzerEffect;

@@ -27,6 +27,9 @@
 #include "WaveAnalyzerControls.h"
 #include "embed.h"
 #include "Knob.h"
+#include "MainWindow.h"
+#include "GuiApplication.h"
+
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPainter>
@@ -35,21 +38,25 @@ namespace lmms::gui
 {
 
 WaveAnalyzerControlDialog::WaveAnalyzerControlDialog(WaveAnalyzerControls* controls) :
-	EffectControlDialog(controls)
+	EffectControlDialog(controls),
+	m_controls(controls)
 {
 
 	/* =========================================================================================================================================== */
 
-	setAutoFillBackground(true);
 	setFixedSize(900, 400);
 
-	QVBoxLayout* mainLayout = new QVBoxLayout; setLayout(mainLayout);
+	QVBoxLayout* mainLayout = new QVBoxLayout;
+	mainLayout->setSpacing(0);
+	setLayout(mainLayout);
 
 	QLabel* waveLabel = new QLabel;
 	mainLayout->addWidget(waveLabel);
 	QPixmap waveContents(900, 400);
 	waveContents.fill(0,0,0);
 	waveLabel->setPixmap(waveContents);
+
+	connect(getGUI()->mainWindow(), &MainWindow::periodicUpdate, this, &WaveAnalyzerControlDialog::updateDisplay);
 
 	/* =========================================================================================================================================== */
 
@@ -68,6 +75,10 @@ WaveAnalyzerControlDialog::WaveAnalyzerControlDialog(WaveAnalyzerControls* contr
 	// makeKnob(57, 10, tr("PAN"), tr("Panning:"), "%", &controls->m_panModel, false);
 	// makeKnob(16, 65, tr("LEFT"), tr("Left gain:"), "%", &controls->m_leftModel, true);
 	// makeKnob(57, 65, tr("RIGHT"), tr("Right gain:"), "%", &controls->m_rightModel, true);
+}
+
+void WaveAnalyzerControlDialog::updateDisplay() {
+	printf("%lf\n", m_controls->m_ampBufferL[0]);
 }
 
 } // namespace lmms::gui
