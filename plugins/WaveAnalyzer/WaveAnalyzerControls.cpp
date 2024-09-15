@@ -23,10 +23,12 @@
  *
  */
 
+#include "WaveAnalyzerControls.h"
+
+#include "WaveAnalyzer.h"
+
 #include <QDomElement>
 
-#include "WaveAnalyzerControls.h"
-#include "WaveAnalyzer.h"
 
 namespace lmms
 {

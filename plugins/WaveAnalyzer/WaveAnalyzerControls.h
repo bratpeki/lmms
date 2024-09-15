@@ -26,10 +26,9 @@
 #ifndef LMMS_WAVE_ANALYZER_CONTROLS_H
 #define LMMS_WAVE_ANALYZER_CONTROLS_H
 
-#define BUFFER_MAX_SIZE 88200
-
 #include "EffectControls.h"
 #include "WaveAnalyzerControlDialog.h"
+#include "AudioEngine.h"
 
 namespace lmms
 {
@@ -65,8 +64,8 @@ private:
 	FloatModel m_leftModel;
 	FloatModel m_rightModel;
 
-	float m_ampBufferL[BUFFER_MAX_SIZE];
-	float m_ampBufferR[BUFFER_MAX_SIZE];
+	float m_ampBufferL[DEFAULT_BUFFER_SIZE];
+	float m_ampBufferR[DEFAULT_BUFFER_SIZE];
 
 	friend class gui::WaveAnalyzerControlDialog;
 	friend class WaveAnalyzerEffect;

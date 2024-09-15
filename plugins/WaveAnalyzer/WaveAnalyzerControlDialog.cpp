@@ -24,6 +24,7 @@
  */
 
 #include "WaveAnalyzerControlDialog.h"
+
 #include "WaveAnalyzerControls.h"
 #include "embed.h"
 #include "Knob.h"
@@ -53,7 +54,8 @@ WaveAnalyzerControlDialog::WaveAnalyzerControlDialog(WaveAnalyzerControls* contr
 	QLabel* waveLabel = new QLabel;
 	mainLayout->addWidget(waveLabel);
 	QPixmap waveContents(900, 400);
-	waveContents.fill(0,0,0);
+	// Deprecation warning
+	// waveContents.fill(0,0,0);
 	waveLabel->setPixmap(waveContents);
 
 	connect(getGUI()->mainWindow(), &MainWindow::periodicUpdate, this, &WaveAnalyzerControlDialog::updateDisplay);
@@ -78,7 +80,9 @@ WaveAnalyzerControlDialog::WaveAnalyzerControlDialog(WaveAnalyzerControls* contr
 }
 
 void WaveAnalyzerControlDialog::updateDisplay() {
+
 	printf("%lf\n", m_controls->m_ampBufferL[0]);
+
 }
 
 } // namespace lmms::gui
