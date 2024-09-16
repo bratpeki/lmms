@@ -53,16 +53,15 @@ public:
         m_view = new gui::WaveAnalyzerControlDialog(this);
         return m_view;
     }
-	int controlCount() override { return 4; }
+	int controlCount() override { return 2; }
 
 private:
 
 	gui::WaveAnalyzerControlDialog* m_view;
 	WaveAnalyzerEffect* m_effect;
-	FloatModel m_volumeModel;
-	FloatModel m_panModel;
-	FloatModel m_leftModel;
-	FloatModel m_rightModel;
+
+	IntModel m_frameModel;
+	BoolModel m_pauseModel;
 
 	float m_ampBufferL[DEFAULT_BUFFER_SIZE];
 	float m_ampBufferR[DEFAULT_BUFFER_SIZE];

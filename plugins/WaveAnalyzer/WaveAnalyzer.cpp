@@ -65,10 +65,10 @@ bool WaveAnalyzerEffect::processAudioBuffer(SampleFrame* buf, const fpp_t frames
 	const float d = dryLevel();
 	const float w = wetLevel();
 
-	const ValueBuffer* volumeBuf = m_ampControls.m_volumeModel.valueBuffer();
-	const ValueBuffer* panBuf = m_ampControls.m_panModel.valueBuffer();
-	const ValueBuffer* leftBuf = m_ampControls.m_leftModel.valueBuffer();
-	const ValueBuffer* rightBuf = m_ampControls.m_rightModel.valueBuffer();
+	// const ValueBuffer* volumeBuf = m_ampControls.m_volumeModel.valueBuffer();
+	// const ValueBuffer* panBuf = m_ampControls.m_panModel.valueBuffer();
+	// const ValueBuffer* leftBuf = m_ampControls.m_leftModel.valueBuffer();
+	// const ValueBuffer* rightBuf = m_ampControls.m_rightModel.valueBuffer();
 
 	for (fpp_t f = 0; f < frames; ++f)
 	{

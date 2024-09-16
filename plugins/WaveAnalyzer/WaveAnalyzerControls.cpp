@@ -26,6 +26,7 @@
 #include "WaveAnalyzerControls.h"
 
 #include "WaveAnalyzer.h"
+#include "AudioEngine.h"
 
 #include <QDomElement>
 
@@ -36,29 +37,25 @@ namespace lmms
 WaveAnalyzerControls::WaveAnalyzerControls(WaveAnalyzerEffect* effect) :
 	EffectControls(effect),
 	m_effect(effect),
-	m_volumeModel(100.0f, 0.0f, 200.0f, 0.1f, this, tr("Volume")),
-	m_panModel(0.0f, -100.0f, 100.0f, 0.1f, this, tr("Panning")),
-	m_leftModel(100.0f, 0.0f, 200.0f, 0.1f, this, tr("Left gain")),
-	m_rightModel(100.0f, 0.0f, 200.0f, 0.1f, this, tr("Right gain"))
+	/* Very arbitrarily chosen value of 8000 */
+	m_frameModel(DEFAULT_BUFFER_SIZE, MINIMUM_BUFFER_SIZE, 8000, this, "Frames"),
+	m_pauseModel(false, this, "Pause")
 {
 }
 
 
 void WaveAnalyzerControls::loadSettings(const QDomElement& parent)
 {
-	m_volumeModel.loadSettings(parent, "volume");
-	m_panModel.loadSettings(parent, "pan");
-	m_leftModel.loadSettings(parent, "left");
-	m_rightModel.loadSettings(parent, "right");
+	/* Maybe don't load and save the pause? */
+	m_frameModel.loadSettings(parent, "frames");
+	m_pauseModel.loadSettings(parent, "pause");
 }
 
 
 void WaveAnalyzerControls::saveSettings(QDomDocument& doc, QDomElement& parent)
 {
-	m_volumeModel.saveSettings(doc, parent, "volume"); 
-	m_panModel.saveSettings(doc, parent, "pan");
-	m_leftModel.saveSettings(doc, parent, "left");
-	m_rightModel.saveSettings(doc, parent, "right");
+	m_frameModel.loadSettings(parent, "frames");
+	m_pauseModel.loadSettings(parent, "pause");
 }
 
 

@@ -54,8 +54,7 @@ WaveAnalyzerControlDialog::WaveAnalyzerControlDialog(WaveAnalyzerControls* contr
 	QLabel* waveLabel = new QLabel;
 	mainLayout->addWidget(waveLabel);
 	QPixmap waveContents(900, 400);
-	// Deprecation warning
-	// waveContents.fill(0,0,0);
+	waveContents.fill(cblack);
 	waveLabel->setPixmap(waveContents);
 
 	connect(getGUI()->mainWindow(), &MainWindow::periodicUpdate, this, &WaveAnalyzerControlDialog::updateDisplay);
@@ -79,7 +78,21 @@ WaveAnalyzerControlDialog::WaveAnalyzerControlDialog(WaveAnalyzerControls* contr
 	// makeKnob(57, 65, tr("RIGHT"), tr("Right gain:"), "%", &controls->m_rightModel, true);
 }
 
+// TODO: When paused, make it so the user can see how loud the signal is in that point
+
 void WaveAnalyzerControlDialog::updateDisplay() {
+
+	/*
+	 * The drawing procedure is as follows:
+	 * Get the frames count and amp buffers
+	 * Shift the points in the buffer by 256 spaces to the left, making space for 256 incoming frames
+	 * Once space has been made, populate the array with new values
+	 * Clear the pixmap
+	 * Draw the new points
+	 */
+
+	int frames = (m_controls->m_frameModel).value();
+	printf("%d, ", frames);
 
 	printf("%lf\n", m_controls->m_ampBufferL[0]);
 

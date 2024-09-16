@@ -28,6 +28,8 @@
 
 #include "EffectControlDialog.h"
 
+#include <QColor>
+
 namespace lmms
 {
 
@@ -49,6 +51,8 @@ public slots:
 public:
 	WaveAnalyzerControlDialog(WaveAnalyzerControls* controls);
 	~WaveAnalyzerControlDialog() override = default;
+
+	const QColor cblack = QColor(0,0,0);
 };
 
 } // namespace gui
