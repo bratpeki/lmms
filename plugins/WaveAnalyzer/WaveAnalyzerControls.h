@@ -30,6 +30,8 @@
 #include "WaveAnalyzerControlDialog.h"
 #include "AudioEngine.h"
 
+#define WAVE_ANALYZER_MAXFRAMES 8000
+
 namespace lmms
 {
 
@@ -65,6 +67,9 @@ private:
 
 	float m_ampBufferL[DEFAULT_BUFFER_SIZE];
 	float m_ampBufferR[DEFAULT_BUFFER_SIZE];
+
+	float m_drawBufferL[WAVE_ANALYZER_MAXFRAMES];
+	float m_drawBufferR[WAVE_ANALYZER_MAXFRAMES];
 
 	friend class gui::WaveAnalyzerControlDialog;
 	friend class WaveAnalyzerEffect;

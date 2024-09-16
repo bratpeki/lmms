@@ -28,6 +28,8 @@
 #include "WaveAnalyzer.h"
 #include "AudioEngine.h"
 
+#include <algorithm>
+
 #include <QDomElement>
 
 
@@ -37,25 +39,25 @@ namespace lmms
 WaveAnalyzerControls::WaveAnalyzerControls(WaveAnalyzerEffect* effect) :
 	EffectControls(effect),
 	m_effect(effect),
-	/* Very arbitrarily chosen value of 8000 */
-	m_frameModel(DEFAULT_BUFFER_SIZE, MINIMUM_BUFFER_SIZE, 8000, this, "Frames"),
+	m_frameModel(DEFAULT_BUFFER_SIZE, MINIMUM_BUFFER_SIZE, WAVE_ANALYZER_MAXFRAMES, this, "Frames"),
 	m_pauseModel(false, this, "Pause")
 {
+	std::fill(std::begin(m_drawBufferL), std::end(m_drawBufferL), 0.0f);
+	std::fill(std::begin(m_drawBufferR), std::end(m_drawBufferR), 0.0f);
 }
 
 
 void WaveAnalyzerControls::loadSettings(const QDomElement& parent)
 {
-	/* Maybe don't load and save the pause? */
 	m_frameModel.loadSettings(parent, "frames");
-	m_pauseModel.loadSettings(parent, "pause");
+	// m_pauseModel.loadSettings(parent, "pause");
 }
 
 
 void WaveAnalyzerControls::saveSettings(QDomDocument& doc, QDomElement& parent)
 {
 	m_frameModel.loadSettings(parent, "frames");
-	m_pauseModel.loadSettings(parent, "pause");
+	// m_pauseModel.loadSettings(parent, "pause");
 }
 
 
