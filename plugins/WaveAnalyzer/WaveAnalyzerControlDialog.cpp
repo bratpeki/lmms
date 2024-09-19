@@ -48,20 +48,24 @@ WaveAnalyzerControlDialog::WaveAnalyzerControlDialog(WaveAnalyzerControls* contr
 	setFixedSize(900, 400);
 
 	QVBoxLayout* mainLayout = new QVBoxLayout;
+	mainLayout->setContentsMargins(0, 0, 0, 0);
 	mainLayout->setSpacing(0);
 	setLayout(mainLayout);
 
 	QLabel* waveLabel = new QLabel;
+	waveLabel->setContentsMargins(0, 0, 0, 0);
 	mainLayout->addWidget(waveLabel);
 	QPixmap waveContents(900, 400);
 	waveContents.fill(cblack);
 	waveLabel->setPixmap(waveContents);
 
+	pixmapWidth = waveContents.width();
+
 	connect(getGUI()->mainWindow(), &MainWindow::periodicUpdate, this, &WaveAnalyzerControlDialog::updateDisplay);
 
 	/* =========================================================================================================================================== */
 
-	auto makeKnob = [this](int x, int y, const QString& label, const QString& hintText, const QString& unit, FloatModel* model, bool isVolume)
+	/* auto makeKnob = [this](int x, int y, const QString& label, const QString& hintText, const QString& unit, FloatModel* model, bool isVolume)
 	{
         Knob* newKnob = new Knob(KnobType::Bright26, this);
         newKnob->move(x, y);
@@ -70,7 +74,7 @@ WaveAnalyzerControlDialog::WaveAnalyzerControlDialog(WaveAnalyzerControls* contr
         newKnob->setHintText(hintText, unit);
         newKnob->setVolumeKnob(isVolume);
         return newKnob;
-    };
+    }; */
 
 	// makeKnob(16, 10, tr("VOL"), tr("Volume:"), "%", &controls->m_volumeModel, true);
 	// makeKnob(57, 10, tr("PAN"), tr("Panning:"), "%", &controls->m_panModel, false);
@@ -91,10 +95,24 @@ void WaveAnalyzerControlDialog::updateDisplay() {
 	 * Draw the new points
 	 */
 
-	int frames = (m_controls->m_frameModel).value();
-	printf("%d, ", frames);
+	// printf("%lf\n", m_controls->m_ampBufferL[0]);
 
-	printf("%lf\n", m_controls->m_ampBufferL[0]);
+	printf("# of frames: %d\t# of pixels to draw to: %d\n", (m_controls->m_frameModel).value(), pixmapWidth);
+
+	// m_controls->m_ampBufferL, m_controls->m_ampBufferR
+	// m_controls->m_drawBufferL, m_controls->m_drawBufferR
+
+/*
+Lost's code:
+std::vector<float> buf1;
+std::vector<float> buf2;
+int index = 0;
+
+buf1[index] = input;
+if (++index >= size) {index = 0; std::copy(buf1.begin(), buf1.end(), buf2.begin());}
+
+then draw buf2
+*/
 
 }
 

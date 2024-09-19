@@ -46,13 +46,13 @@ class WaveAnalyzerControlDialog : public EffectControlDialog
 	Q_OBJECT
 private:
 	WaveAnalyzerControls* m_controls;
+	const QColor cblack = QColor(0,0,0);
+	int pixmapWidth;
 public slots:
 	void updateDisplay();
 public:
 	WaveAnalyzerControlDialog(WaveAnalyzerControls* controls);
 	~WaveAnalyzerControlDialog() override = default;
-
-	const QColor cblack = QColor(0,0,0);
 };
 
 } // namespace gui
