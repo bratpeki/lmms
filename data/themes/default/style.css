@@ -2,7 +2,7 @@
  * LMMS style sheet *
  ********************/
 
-/* most foreground text items */
+/* Text color of most foreground text items */
 QLabel, QTreeWidget, QListWidget, QGroupBox, QMenuBar, QCheckBox {
 	color: #d1d8e4;
 }
@@ -10,13 +10,20 @@ QLabel, QTreeWidget, QListWidget, QGroupBox, QMenuBar, QCheckBox {
 /* TODO: Come back to this */
 
 QTreeView {
-	outline: none;
-	alternate-background-color: #111314;
+	outline: none; /* No outline around names of elements in the explorer */
+	alternate-background-color: #111314; /* ??? */
+	/* You can change the background color of the explorer with the background-color rule! */
 }
 
+/* One item in the explorer (folder, file, preset, sample, etc) */
 QTreeWidget::item {
 	padding: 1px;
 }
+
+/*
+ * A branch is just a folder!
+ * These two rulesets affect hovering and clicking on folders.
+ */
 
 QTreeWidget::item:hover,
 QTreeWidget::branch:hover {
@@ -30,6 +37,8 @@ QTreeWidget::branch:selected {
 	padding-left: 0px;
 }
 
+/* Side icons for open and closed folders */
+
 QTreeView::branch:has-children:open {
 	border-image: url("resources:open_branch.png") 0;
 }
@@ -37,6 +46,8 @@ QTreeView::branch:has-children:open {
 QTreeView::branch:has-children:closed {
 	border-image: url("resources:closed_branch.png") 0;
 }
+
+/* TODO */
 
 QMdiArea {
 	background-color: #111314;
@@ -47,6 +58,8 @@ lmms--gui--FileBrowser QCheckBox
 	font-size: 8pt;
 	color: white;
 }
+
+/* TODO: Come back to this */
 
 lmms--gui--Knob {
 	/* Examples of inactive knobs include effect decay and gate knobs. */
