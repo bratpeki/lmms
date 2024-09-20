@@ -7,8 +7,6 @@ QLabel, QTreeWidget, QListWidget, QGroupBox, QMenuBar, QCheckBox {
 	color: #d1d8e4;
 }
 
-/* TODO: Come back to this */
-
 QTreeView {
 	outline: none; /* No outline around names of elements in the explorer */
 	alternate-background-color: #111314; /* ??? */
@@ -88,9 +86,9 @@ lmms--gui--AutomationEditor {
 	qproperty-crossColor: rgba(215, 210, 254, 150); /* The color of the cross that intersects with the cursor */
 
 	/* Grid colors */
-	qproperty-barLineColor: #8173fe; /* Horizontal bar lines (at 1, 2, 3, etc) */
-	qproperty-beatLineColor: #4a3bba; /* Horizontal beat lines and dotted horizontal lines, for some reason */
-	qproperty-lineColor: #292929; /* The remaining horizontal lines */
+	qproperty-barLineColor: #8173fe; /* Vertical bar lines (at 1, 2, 3, etc) */
+	qproperty-beatLineColor: #4a3bba; /* Vertical beat lines and dotted horizontal lines, for some reason */
+	qproperty-lineColor: #292929; /* The remaining vertical lines */
 
 	qproperty-graphColor: rgba(69,42,153,180); /* The color of the area under the automation curve */
 	qproperty-scaleColor: #262b30; /* The side section where the values of the automated parameter are */
@@ -229,54 +227,99 @@ QMenu::indicator:selected {
 	background-color: #101213;
 }
 
-/* ===== TODO BELOW ===== */
-
+/* The playhead */
 lmms--gui--PositionLine {
 	qproperty-tailGradient: true;
 	qproperty-lineColor: rgb(255, 255, 255);
 }
 
 lmms--gui--PianoRoll {
-	background-color: #141616;
-	qproperty-backgroundShade: rgba(255, 255, 255, 10);
-	qproperty-noteModeColor: #0bd556;
-	qproperty-noteColor: #0bd556;
-	qproperty-stepNoteColor: #9b1313;
+	background-color: #141616; /* Used for both the note and the velocity/panning space */
+	qproperty-backgroundShade: rgba(255, 255, 255, 10); /* The even columns of the note space */
+	qproperty-noteModeColor: #0bd556; /* The text left of the velocity/panning space */
+
+	/* These all apply to your regular notes in the piano roll */
+	qproperty-noteColor: #0bd556; /* It's also used for the velocity/panning lollipop heads! */
 	qproperty-noteTextColor: #ffffff;
 	qproperty-noteOpacity: 165;
-	qproperty-noteBorders: false; /* boolean property, set false to have borderless notes */
+	/*
+	 * Toggles the borders around notes.
+	 * It uses the same color as notes (noteColor), but at 255 opacity.
+	 */
+	qproperty-noteBorders: false;
+
+	qproperty-stepNoteColor: #9b1313; /* Notes in the MIDI editor made by the Beat&Bassline editor */
 	qproperty-selectedNoteColor: #064d79;
+
+	/*
+	 * These apply to the ghost notes.
+	 * Same logic as with the regular notes.
+	 */
 	qproperty-ghostNoteColor: #1e1e1e;
 	qproperty-ghostNoteTextColor: #ffffff;
 	qproperty-ghostNoteOpacity: 60;
 	qproperty-ghostNoteBorders: false;
-	qproperty-barColor: #078f3a;
-	qproperty-markedSemitoneColor: rgba(255, 255, 255, 30);
-	qproperty-knifeCutLine: rgba(255, 0, 0, 255);
+
+	qproperty-barColor: #078f3a; /* Color of the velocity/panning lollipop bars */
+	qproperty-markedSemitoneColor: rgba(255, 255, 255, 30); /* Note line markings (semitones, scales) */
+	qproperty-knifeCutLine: rgba(255, 0, 0, 255); /* Related to the knife-cut tool (from the wrench button dropdown) */
+
 	/* Piano keys */
-	qproperty-whiteKeyWidth: 64;
-	qproperty-whiteKeyActiveTextColor: #000;
-	qproperty-whiteKeyActiveTextShadow: #fff;
+
+	qproperty-whiteKeyWidth: 64; /* Horizontal width */
+
+	/*
+	 * Active keys are the keys of the note currently being placed into the editor or played back.
+	 *
+	 * Think of keys as stuff in the piano to the left in the MIDI editor,
+	 * and notes as the stuff on the right.
+	 */
+
+	qproperty-whiteKeyActiveTextColor: #000; /* Text color of the active key */
+	qproperty-whiteKeyActiveTextShadow: #fff; /* Shadow of the same text as above */
+	/*
+	 * Gradient of the key, when its note is being placed into the editor.
+	 *
+	 * The gradient is applied to the actual "white space" on the key.
+	 * Usually, you'll only want to change the two specified colors.
+	 * In the case of all Qt linear gradients, the color switches from the left color to the right one.
+	 *
+	 * If you don't want a gradient, just use a regular color!
+	 */
 	qproperty-whiteKeyActiveBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #3ac467, stop:1 #3dd671);
-	qproperty-whiteKeyInactiveTextColor: #000;
-	qproperty-whiteKeyInactiveTextShadow: #fff;
+
+	/* Inactive keys are all keys that aren't the active keys. */
+
+	qproperty-whiteKeyInactiveTextColor: #000; /* Text color of the inactive keys */
+	qproperty-whiteKeyInactiveTextShadow: #fff; /* Shadow of the same text as above */
 	qproperty-whiteKeyInactiveBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #d6d6d6, stop:1 #e3e3e3);
+	/*
+	 * The user can disable certain note ranges,
+	 * by dragging the two pivots at the beginning and end of the instrument keyboard.
+	 * This rule applies to the keys of those disabled notes.
+	 */
 	qproperty-whiteKeyDisabledBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #a0a0a0, stop:1 #b0b0b0);
-	qproperty-blackKeyWidth: 48;
+
+	qproperty-blackKeyWidth: 48; /* Horizontal width */
+
 	qproperty-blackKeyActiveBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #3ac467, stop:1 #3dd671);
 	qproperty-blackKeyInactiveBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #262626, stop:1 #313131);
+	/* The same disabling logic as with the white notes (whiteKeyDisabledBackground) */
 	qproperty-blackKeyDisabledBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #606060, stop:1 #505050);
 
 	/* Grid colors */
-	qproperty-lineColor: #292929;
-	qproperty-beatLineColor: #2d6b45;
-	qproperty-barLineColor: #42a065;
+	qproperty-barLineColor: #42a065; /* Vertical bar lines (at 0, 1, 2, 3, etc) */
+	qproperty-beatLineColor: #2d6b45; /* Vertical beat lines and horizontal octave separation lines */
+	qproperty-lineColor: #292929; /* Horizontal and the remaining vertical lines */
 
-	/* Text on the white piano keys */
+
+	/* Text on the white piano keys (TODO: I'm fairly certain these don't do anything, but I'll have to check */
 	qproperty-textColor: #000;
 	qproperty-textColorLight: #0bd556;
 	qproperty-textShadow: #fff;
 }
+
+/* === TODO BELOW === */
 
 lmms--gui--TabWidget {
 	background-color: #262b30;
