@@ -47,19 +47,17 @@ QTreeView::branch:has-children:closed {
 	border-image: url("resources:closed_branch.png") 0;
 }
 
-/* TODO */
-
+/* All the subwindows in LMMS (editors, mixer, notes, controller rack) live here. */
 QMdiArea {
 	background-color: #111314;
 }
 
+/* Checkboxes in the browser ("User content", "Factory content" and "Hidden content") */
 lmms--gui--FileBrowser QCheckBox
 {
 	font-size: 8pt;
 	color: white;
 }
-
-/* TODO: Come back to this */
 
 lmms--gui--Knob {
 	/* Examples of inactive knobs include effect decay and gate knobs. */
@@ -101,6 +99,8 @@ lmms--gui--AutomationEditor {
 	qproperty-detuningNoteColor: rgba(248, 11, 11, 125); /* The note from the MIDI editor being detuned */
 
 }
+
+/* ===== TODO BELOW ===== */
 
 /* text box */
 
