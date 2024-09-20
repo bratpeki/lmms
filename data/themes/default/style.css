@@ -37,7 +37,7 @@ QTreeWidget::branch:selected {
 	padding-left: 0px;
 }
 
-/* Side icons for open and closed folders */
+/* Icons left of the folder name, used for showing opened and closed folders */
 
 QTreeView::branch:has-children:open {
 	border-image: url("resources:open_branch.png") 0;
@@ -100,9 +100,10 @@ lmms--gui--AutomationEditor {
 
 }
 
-/* ===== TODO BELOW ===== */
-
-/* text box */
+/*
+ * Text boxes
+ * E.g. explorer search bars, instrument names and some settings
+ */
 
 QLineEdit {
 	border-radius: 4px;
@@ -115,11 +116,13 @@ QLineEdit:read-only {
 	background: transparent;
 }
 
-/* text box when it wants text */
+/* Text boxes when they're focused (that is, accepting text) */
 
 QLineEdit:focus {
 	border: 1px solid #0bd556;
 }
+
+/* ===== TODO BELOW ===== */
 
 /* Set color and selection background color for various inputs.
    SpinBoxes are used in QInputDialogs */
