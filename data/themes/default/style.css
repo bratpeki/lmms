@@ -122,15 +122,32 @@ QLineEdit:focus {
 	border: 1px solid #0bd556;
 }
 
-/* ===== TODO BELOW ===== */
-
-/* Set color and selection background color for various inputs.
-   SpinBoxes are used in QInputDialogs */
+/*
+ * This rule is applied to any text when it is being edited,
+ * and sets the text color and selection background of said text.
+ *
+ * E.g:
+ * - mixer track names,
+ * - sample, instrument and Beat&Bassline track names,
+ * - numeric value input when double-clicking on parameters,
+ * - instrument names
+ * - explorer search bars
+ *
+ * Developers, SpinBoxes are used in QInputDialogs.
+ */
 
 QTextEdit, QLineEdit:focus, QComboBox:focus, QSpinBox:focus, QDoubleSpinBox:focus {
 	color: #d1d8e4;
 	selection-background-color: #17793b;
 }
+
+/*
+ * For the unaware, tooltips are the informative text that appears
+ * when you hover over certain buttons, faders, etc.
+ *
+ * Not all users are gonna see this.
+ * It depends on whether or not they've toggled "Enable tooltips" in the settings.
+ */
 
 QToolTip {
 	border-radius: 4px;
@@ -138,17 +155,23 @@ QToolTip {
 	color: #d1d8e4;
 }
 
+/*
+ * Same as the above, but this appears for knobs and shows their values.
+ * Preferably, set it to the be the same colors as the above.
+ */
+
 lmms--gui--TextFloat, lmms--gui--SimpleTextFloat {
 	background: #040506;
 	color: #d1d8e4;
 }
 
+/* Splash screen text */
 
-/* splash screen text */
 QSplashScreen QLabel {
 	color: white;
 }
 
+/* The menu options in the top-left corner (File, Edit, View, etc). */
 
 QMenu {
 	border-top: 2px solid #08993E;
@@ -179,10 +202,12 @@ QMenu::item:disabled {
 	padding: 4px 32px 4px 20px;
 }
 
+/* The menu item icon (e.g. cog next to "Settings". Usually, you won't touch this. */
 QMenu::icon {
 	margin: 3px;
 }
 
+/* Used for the toggleable menu items, such as "Volume as dBFS" */
 QMenu::indicator {
 	width: 16;
 	height: 16;
@@ -192,15 +217,19 @@ QMenu::indicator {
 	background-color: #101213;
 }
 
+/* The toggleable items that are on */
 QMenu::indicator:checked {
 	image: url("resources:apply.png");
 }
 
+/* The toggleable item you're hovering over */
 QMenu::indicator:selected {
 	image: url("resources:apply-selected.png");
 	border: 1px solid #101213;
 	background-color: #101213;
 }
+
+/* ===== TODO BELOW ===== */
 
 lmms--gui--PositionLine {
 	qproperty-tailGradient: true;
