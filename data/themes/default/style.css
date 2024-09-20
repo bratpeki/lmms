@@ -7,6 +7,8 @@ QLabel, QTreeWidget, QListWidget, QGroupBox, QMenuBar, QCheckBox {
 	color: #d1d8e4;
 }
 
+/* TODO: Come back to this */
+
 QTreeView {
 	outline: none;
 	alternate-background-color: #111314;
@@ -47,28 +49,44 @@ lmms--gui--FileBrowser QCheckBox
 }
 
 lmms--gui--Knob {
+	/* Examples of inactive knobs include effect decay and gate knobs. */
 	qproperty-lineInactiveColor: rgb(120, 120, 120);
 	qproperty-arcInactiveColor: rgba(120, 120, 120, 70);
 }
 
 lmms--gui--AutomationEditor {
+
+	/*
+	 * The color of the text to the left of the automation editing space
+	 * that display the values of the automated parameter.
+	 */
 	color: #ffffff;
+
+	/*
+	 * Colors of the background.
+	 * 'background-color' is applied the background of the automation editor.
+	 * 'qproperty-backgroundShade' is applied afterwards, to each each even column.
+	 */
 	background-color: #141616;
 	qproperty-backgroundShade: rgba(255, 255, 255, 15);
-	qproperty-nodeInValueColor: rgba(103, 73, 194, 150);
-	qproperty-nodeOutValueColor: rgba(125, 40, 40, 150);
-	qproperty-nodeTangentLineColor: rgba(200, 200, 200, 255);
-	qproperty-crossColor: rgba(215, 210, 254, 150);
-	/* Grid colors */
-	qproperty-lineColor: #292929;
-	qproperty-beatLineColor: #4a3bba;
-	qproperty-barLineColor: #8173fe;
 
-	qproperty-graphColor: rgba(69,42,153,180);
-	qproperty-scaleColor: #262b30;
-	qproperty-ghostNoteColor: rgba(248, 248, 255, 125);
-	qproperty-detuningNoteColor: rgba(248, 11, 11, 125);
+	qproperty-nodeInValueColor: rgba(103, 73, 194, 150); /* The color of the node */
+	qproperty-nodeOutValueColor: rgba(125, 40, 40, 150); /* The color of the outValues nodes */
+
+	qproperty-nodeTangentLineColor: rgba(200, 200, 200, 255);
+	qproperty-crossColor: rgba(215, 210, 254, 150); /* The color of the cross that intersects with the cursor */
+
+	/* Grid colors */
+	qproperty-barLineColor: #8173fe; /* Horizontal bar lines (at 1, 2, 3, etc) */
+	qproperty-beatLineColor: #4a3bba; /* Horizontal beat lines and dotted horizontal lines, for some reason */
+	qproperty-lineColor: #292929; /* The remaining horizontal lines */
+
+	qproperty-graphColor: rgba(69,42,153,180); /* The color of the area under the automation curve */
+	qproperty-scaleColor: #262b30; /* The side section where the values of the automated parameter are */
+	qproperty-ghostNoteColor: rgba(248, 248, 255, 125); /* Ghost notes and ghost samples appear when detuning MIDI editor notes */
 	qproperty-ghostSampleColor: rgba(125, 125, 125, 125);
+	qproperty-detuningNoteColor: rgba(248, 11, 11, 125); /* The note from the MIDI editor being detuned */
+
 }
 
 /* text box */
