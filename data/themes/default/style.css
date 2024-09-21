@@ -2,6 +2,15 @@
  * LMMS style sheet *
  ********************/
 
+/*
+ * TODO:
+ * - Split into segments:
+ * Single-line title in the format of "=== TITLE ==="
+ * Multi-line comment with a short description and necessary explanataion
+ * Then do single- or multi-line description comment and the rule below it
+ * Separate comment-rule pairs with empty lines
+ */
+
 /* Text color of most foreground text items */
 QLabel, QTreeWidget, QListWidget, QGroupBox, QMenuBar, QCheckBox {
 	color: #d1d8e4;
