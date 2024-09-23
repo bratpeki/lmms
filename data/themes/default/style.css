@@ -2,13 +2,14 @@
  * LMMS style sheet *
  ********************/
 
+/* === SECTION TITLE ===
+ * Description
+ */
+
 /*
- * TODO:
- * - Split into segments:
- * Single-line title in the format of "=== TITLE ==="
- * Multi-line comment with a short description and necessary explanataion
- * Then do single- or multi-line description comment and the rule below it
- * Separate comment-rule pairs with empty lines
+ * A couple rules:
+ * 1. Treat the user as and idiot
+ * 2. Keep the lines under 100 characters, if possible
  */
 
 /* Text color of most foreground text items */
@@ -16,20 +17,31 @@ QLabel, QTreeWidget, QListWidget, QGroupBox, QMenuBar, QCheckBox {
 	color: #d1d8e4;
 }
 
+/* === THE EXPLORER ===
+ * TODO: Are there any more tree views?
+ * You can change the background color of the explorer with the background-color rule.
+ */
 QTreeView {
-	outline: none; /* No outline around names of elements in the explorer */
-	alternate-background-color: #111314; /* ??? */
-	/* You can change the background color of the explorer with the background-color rule! */
+
+	/* No outline around names of items in the explorer */
+	outline: none;
+
+	/* ??? */
+	alternate-background-color: #111314;
+
 }
 
-/* One item in the explorer (folder, file, preset, sample, etc) */
+/* === EXPLORER ITEMS ===
+ * An item in the explorer can be a folder,
+ * as well as a preset, sample or any other type of file.
+ */
 QTreeWidget::item {
 	padding: 1px;
 }
 
-/*
+/* === EXPLORER BRANCHES ===
  * A branch is just a folder!
- * These two rulesets affect hovering and clicking on folders.
+ * These two rulesets affect hovering and selecting folders.
  */
 
 QTreeWidget::item:hover,
@@ -44,7 +56,9 @@ QTreeWidget::branch:selected {
 	padding-left: 0px;
 }
 
-/* Icons left of the folder name, used for showing opened and closed folders */
+/* === FOLDER ICONS ===
+ * Icons left of the folder name, used for showing opened and closed folders
+ */
 
 QTreeView::branch:has-children:open {
 	border-image: url("resources:open_branch.png") 0;
@@ -54,82 +68,119 @@ QTreeView::branch:has-children:closed {
 	border-image: url("resources:closed_branch.png") 0;
 }
 
-/* All the subwindows in LMMS (editors, mixer, notes, controller rack) live here. */
+/* === SUBWINDOWS ===
+ * Subwindows in LMMS are editors, the mixer, notes, and the controller rack.
+ */
 QMdiArea {
 	background-color: #111314;
 }
 
-/* Checkboxes in the browser ("User content", "Factory content" and "Hidden content") */
+/* === BROWSER CHECKBOXES ===
+ * You can find these next to "User content", "Factory content" and "Hidden content".
+ */
 lmms--gui--FileBrowser QCheckBox
 {
 	font-size: 8pt;
 	color: white;
 }
 
+/* === KNOBS ===
+ * Any and all knobs in the program.
+ * Examples can be found on instrument and sample tracks, as volume and panning knobs,
+ * as well as on the mixer, instrument and sample effects.
+ */
 lmms--gui--Knob {
-	/* Examples of inactive knobs include effect decay and gate knobs. */
+
+	/*
+	 * Examples of inactive knobs include effect decay and effect gate knobs.
+	 *
+	 * The line refers to the line inside the knob.
+	 * The arc is the arc around the knob.
+	 */
 	qproperty-lineInactiveColor: rgb(120, 120, 120);
 	qproperty-arcInactiveColor: rgba(120, 120, 120, 70);
+
 }
 
+/* === AUTOMATION EDITOR === */
 lmms--gui--AutomationEditor {
 
 	/*
-	 * The color of the text to the left of the automation editing space
-	 * that display the values of the automated parameter.
+	 * The color of the text fields to the left of the automation editing space
+	 * that display the values of the automated parameter
 	 */
 	color: #ffffff;
 
 	/*
-	 * Colors of the background.
+	 * Colors of the background
+	 *
 	 * 'background-color' is applied the background of the automation editor.
 	 * 'qproperty-backgroundShade' is applied afterwards, to each each even column.
 	 */
 	background-color: #141616;
 	qproperty-backgroundShade: rgba(255, 255, 255, 15);
 
-	qproperty-nodeInValueColor: rgba(103, 73, 194, 150); /* The color of the node */
-	qproperty-nodeOutValueColor: rgba(125, 40, 40, 150); /* The color of the outValues nodes */
+	/* The color of the nodes */
+	qproperty-nodeInValueColor: rgba(103, 73, 194, 150);
 
+	/* The color of the outValues nodes */
+	qproperty-nodeOutValueColor: rgba(125, 40, 40, 150);
+
+	/* Color of the tangent line, when they're enabled */
 	qproperty-nodeTangentLineColor: rgba(200, 200, 200, 255);
-	qproperty-crossColor: rgba(215, 210, 254, 150); /* The color of the cross that intersects with the cursor */
 
-	/* Grid colors */
-	qproperty-barLineColor: #8173fe; /* Vertical bar lines (at 1, 2, 3, etc) */
-	qproperty-beatLineColor: #4a3bba; /* Vertical beat lines and dotted horizontal lines, for some reason */
-	qproperty-lineColor: #292929; /* The remaining vertical lines */
+	/* The color of the horizontal and vertical line that follow the cursor */
+	qproperty-crossColor: rgba(215, 210, 254, 150);
 
-	qproperty-graphColor: rgba(69,42,153,180); /* The color of the area under the automation curve */
-	qproperty-scaleColor: #262b30; /* The side section where the values of the automated parameter are */
-	qproperty-ghostNoteColor: rgba(248, 248, 255, 125); /* Ghost notes and ghost samples appear when detuning MIDI editor notes */
+	/*
+	 * Grid colors
+	 *
+	 * barLineColor applies to the vertical bar lines (at 1, 2, 3, etc).
+	 * beatLineColor applies to the vertical beat lines and dotted horizontal lines, for some reason.
+	 * lineColor applies to the remaining vertical lines.
+	 */
+	qproperty-barLineColor: #8173fe;
+	qproperty-beatLineColor: #4a3bba;
+	qproperty-lineColor: #292929;
+
+	/* The color of the area under the automation curve */
+	qproperty-graphColor: rgba(69,42,153,180);
+
+	/* The side section where the values of the automated parameter are */
+	qproperty-scaleColor: #262b30;
+
+	/* Ghost notes and ghost samples appear when detuning MIDI editor notes */
+	qproperty-ghostNoteColor: rgba(248, 248, 255, 125);
+
+	/* Color of the ghost sample track */
 	qproperty-ghostSampleColor: rgba(125, 125, 125, 125);
-	qproperty-detuningNoteColor: rgba(248, 11, 11, 125); /* The note from the MIDI editor being detuned */
+
+	/* The note from the MIDI editor being detuned */
+	qproperty-detuningNoteColor: rgba(248, 11, 11, 125);
 
 }
 
-/*
- * Text boxes
- * E.g. explorer search bars, instrument names and some settings
+/* === TEXT BOX BORDERS
+ * E.g. borders around explorer search bars, instrument names and some settings
  */
-
 QLineEdit {
 	border-radius: 4px;
 	border: 1px;
 	background: #101213;
 }
 
+/* ??? */
 QLineEdit:read-only {
 	border-style: none;
 	background: transparent;
 }
 
-/* Text boxes when they're focused (that is, accepting text) */
-
+/* Text boxes when they're focused (that is, when they're accepting text) */
 QLineEdit:focus {
 	border: 1px solid #0bd556;
 }
 
-/*
+/* === CURRENTLY EDITING TEXT ===
  * This rule is applied to any text when it is being edited,
  * and sets the text color and selection background of said text.
  *
@@ -140,46 +191,43 @@ QLineEdit:focus {
  * - instrument names
  * - explorer search bars
  *
- * Developers, SpinBoxes are used in QInputDialogs.
+ * (Developers, SpinBoxes are used in QInputDialogs.)
  */
-
 QTextEdit, QLineEdit:focus, QComboBox:focus, QSpinBox:focus, QDoubleSpinBox:focus {
 	color: #d1d8e4;
 	selection-background-color: #17793b;
 }
 
-/*
+/* === TOOLTIPS ===
  * For the unaware, tooltips are the informative text that appears
  * when you hover over certain buttons, faders, etc.
  *
  * Not all users are gonna see this.
  * It depends on whether or not they've toggled "Enable tooltips" in the settings.
  */
-
 QToolTip {
 	border-radius: 4px;
-	background: #040506;
+	background: #040506; /* TODO: background-color? */
 	color: #d1d8e4;
 }
 
-/*
- * Same as the above, but this appears for knobs and shows their values.
- * Preferably, set it to the be the same colors as the above.
+/* === KNOB VALUE BOXES ===
+ * Same as the tooltips, but this appears for knobs and shows their values.
+ * Preferably, set it to the be the same colors as the tooltip.
  */
-
 lmms--gui--TextFloat, lmms--gui--SimpleTextFloat {
-	background: #040506;
+	background: #040506; /* TODO: background-color? */
 	color: #d1d8e4;
 }
 
-/* Splash screen text */
-
+/* === SPLASH SCREEN TEXT === */
 QSplashScreen QLabel {
 	color: white;
 }
 
-/* The menu options in the top-left corner (File, Edit, View, etc). */
-
+/* === TOPBAR MENU ===
+ * The menu options in the top-left corner (File, Edit, View, etc).
+ */
 QMenu {
 	border-top: 2px solid #08993E;
 	background-color: #15191c;
@@ -192,17 +240,20 @@ QMenu::separator {
 	margin-right: 0px;
 }
 
+/* A single item in the menu */
 QMenu::item {
 	color: #d1d8e4;
 	padding: 2px 35px 2px 23px;
 	margin: 3px 0px 3px 0px;
 }
 
+/* The item in the menu you're hovering over */
 QMenu::item:selected {
 	color: #d1d8e4;
 	background-color: #21272b;
 }
 
+/* Disabled items (e.g. undo and redo menu options) */
 QMenu::item:disabled {
 	color: #515459;
 	background-color: #262b30;
@@ -236,96 +287,132 @@ QMenu::indicator:selected {
 	background-color: #101213;
 }
 
-/* The playhead */
+/* === PLAYHEAD === */
 lmms--gui--PositionLine {
 	qproperty-tailGradient: true;
 	qproperty-lineColor: rgb(255, 255, 255);
 }
 
+/* === PIANO ROLL (MIDI EDITOR) ===
+ * "Key" refers to the graphical piano key to the left of the piano roll.
+ * "Note editor" refers to the right part of the piano roll window, where notes are placed.
+ * "Note" refers to the MIDI note in the note editor.
+ * "Velocity/panning editor" is the thing at the bottom of the piano roll, with the lollipops.
+ */
 lmms--gui--PianoRoll {
-	background-color: #141616; /* Used for both the note and the velocity/panning space */
-	qproperty-backgroundShade: rgba(255, 255, 255, 10); /* The even columns of the note space */
-	qproperty-noteModeColor: #0bd556; /* The text left of the velocity/panning space */
 
-	/* These all apply to your regular notes in the piano roll */
-	qproperty-noteColor: #0bd556; /* It's also used for the velocity/panning lollipop heads! */
+	/* Used for the background of both the note editor and the velocity/panning editor */
+	background-color: #141616;
+
+	/* The background color of the even columns of the note editor */
+	qproperty-backgroundShade: rgba(255, 255, 255, 10);
+
+	/* The color of the text left of the velocity/panning editor */
+	qproperty-noteModeColor: #0bd556;
+
+	/* Note color; also used for the velocity/panning lollipop heads! */
+	qproperty-noteColor: #0bd556;
+
 	qproperty-noteTextColor: #ffffff;
+
 	qproperty-noteOpacity: 165;
+
 	/*
 	 * Toggles the borders around notes.
-	 * It uses the same color as notes (noteColor), but at 255 opacity.
+	 * It uses the same color as notes (noteColor), but at the maximum opacity of 255.
 	 */
 	qproperty-noteBorders: false;
 
-	qproperty-stepNoteColor: #9b1313; /* Notes in the MIDI editor made by the Beat&Bassline editor */
+	/* Notes in the MIDI editor made by the Beat&Bassline editor */
+	/* TODO: It's called the "Pattern editor" now, right? */
+	qproperty-stepNoteColor: #9b1313;
+
 	qproperty-selectedNoteColor: #064d79;
 
 	/*
 	 * These apply to the ghost notes.
-	 * Same logic as with the regular notes.
+	 * Same logic as with the regular notes, just follow the names.
 	 */
 	qproperty-ghostNoteColor: #1e1e1e;
 	qproperty-ghostNoteTextColor: #ffffff;
 	qproperty-ghostNoteOpacity: 60;
 	qproperty-ghostNoteBorders: false;
 
-	qproperty-barColor: #078f3a; /* Color of the velocity/panning lollipop bars */
-	qproperty-markedSemitoneColor: rgba(255, 255, 255, 30); /* Note line markings (semitones, scales) */
-	qproperty-knifeCutLine: rgba(255, 0, 0, 255); /* Related to the knife-cut tool (from the wrench button dropdown) */
+	/* Color of the velocity/panning lollipop bars */
+	qproperty-barColor: #078f3a;
 
-	/* Piano keys */
+	/* Markings on key lines. Used for marking stuff like scales */
+	qproperty-markedSemitoneColor: rgba(255, 255, 255, 30);
 
-	qproperty-whiteKeyWidth: 64; /* Horizontal width */
+	/* The line drawn by the knife-cut tool (from the wrench button dropdown) */
+	qproperty-knifeCutLine: rgba(255, 0, 0, 255);
+
+	/* Horizontal width of the white keys */
+	qproperty-whiteKeyWidth: 64;
 
 	/*
-	 * Active keys are the keys of the note currently being placed into the editor or played back.
-	 *
-	 * Think of keys as stuff in the piano to the left in the MIDI editor,
-	 * and notes as the stuff on the right.
+	 * "Active keys" are the keys of the note
+	 * currently being placed into the editor or played back.
 	 */
 
-	qproperty-whiteKeyActiveTextColor: #000; /* Text color of the active key */
-	qproperty-whiteKeyActiveTextShadow: #fff; /* Shadow of the same text as above */
+	/* Text color of the active key */
+	qproperty-whiteKeyActiveTextColor: #000;
+
+	/* Shadow of the same text as above */
+	qproperty-whiteKeyActiveTextShadow: #fff;
+
 	/*
 	 * Gradient of the key, when its note is being placed into the editor.
 	 *
 	 * The gradient is applied to the actual "white space" on the key.
 	 * Usually, you'll only want to change the two specified colors.
-	 * In the case of all Qt linear gradients, the color switches from the left color to the right one.
+	 * In the case of all Qt linear gradients,
+	 * the color switches from the left color to the right one.
 	 *
 	 * If you don't want a gradient, just use a regular color!
 	 */
 	qproperty-whiteKeyActiveBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #3ac467, stop:1 #3dd671);
 
-	/* Inactive keys are all keys that aren't the active keys. */
+	/*
+	 * Inactive keys are all the playable keys that aren't the active keys.
+	 * The same logic applies as with the active keys, just follow the names.
+	 */
 
-	qproperty-whiteKeyInactiveTextColor: #000; /* Text color of the inactive keys */
-	qproperty-whiteKeyInactiveTextShadow: #fff; /* Shadow of the same text as above */
+	qproperty-whiteKeyInactiveTextColor: #000;
+	qproperty-whiteKeyInactiveTextShadow: #fff;
 	qproperty-whiteKeyInactiveBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #d6d6d6, stop:1 #e3e3e3);
+
 	/*
 	 * The user can disable certain note ranges,
-	 * by dragging the two pivots at the beginning and end of the instrument keyboard.
+	 * by dragging the two pivots at the beginning and end of the instrument keyboard,
+	 * at the bottom of the instrument.
 	 * This rule applies to the keys of those disabled notes.
 	 */
 	qproperty-whiteKeyDisabledBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #a0a0a0, stop:1 #b0b0b0);
 
-	qproperty-blackKeyWidth: 48; /* Horizontal width */
-
+	/* Same logic as above, just applied to the black keys */
+	qproperty-blackKeyWidth: 48;
 	qproperty-blackKeyActiveBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #3ac467, stop:1 #3dd671);
 	qproperty-blackKeyInactiveBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #262626, stop:1 #313131);
-	/* The same disabling logic as with the white notes (whiteKeyDisabledBackground) */
 	qproperty-blackKeyDisabledBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #606060, stop:1 #505050);
 
-	/* Grid colors */
-	qproperty-barLineColor: #42a065; /* Vertical bar lines (at 0, 1, 2, 3, etc) */
-	qproperty-beatLineColor: #2d6b45; /* Vertical beat lines and horizontal octave separation lines */
-	qproperty-lineColor: #292929; /* Horizontal and the remaining vertical lines */
+	/*
+	 * Grid colors
+	 * barLineColor refers to the vertical bar lines (at 0, 1, 2, 3, etc).
+	 * beatLineColor refers to the vertical beat lines and horizontal octave separation lines.
+	 * lineColor refers to the horizontal, as well as the remaining vertical lines.
+	 */
+	qproperty-barLineColor: #42a065;
+	qproperty-beatLineColor: #2d6b45;
+	qproperty-lineColor: #292929;
 
-
-	/* Text on the white piano keys (TODO: I'm fairly certain these don't do anything, but I'll have to check */
-	qproperty-textColor: #000;
-	qproperty-textColorLight: #0bd556;
-	qproperty-textShadow: #fff;
+	/*
+	 * Text on the white piano keys
+	 * (TODO: I'm fairly certain these don't do anything, but I'll have to check
+	 */
+	qproperty-textColor: #000; /* TODO: Sounds like whiteKeyActiveTextColor */
+	qproperty-textColorLight: #0bd556; /* ??? */
+	qproperty-textShadow: #fff; /* TODO: Sounds like whiteKeyActiveTextShadow */
 }
 
 /* === TODO BELOW === */
