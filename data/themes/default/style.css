@@ -474,18 +474,21 @@ lmms--gui--Oscilloscope {
 
 }
 
-/* === TODO BELOW === */
-
-/* main toolbar cpu load widget - this can have transparent bg now */
-
+/* === CPU LOAD ===
+ * Located under the oscilloscope.
+ * Here, you'll probably just change the PNG, not this CSS part.
+ */
+ /* TODO: "main toolbar cpu load widget - this can have transparent bg now" how? */
 lmms--gui--CPULoadWidget {
 	border: none;
 	background: url("resources:cpuload_bg.png");
 	qproperty-stepSize: 1;
 }
 
-/* scrollbar: trough */
-
+/* === SCROLLBARS ===
+ * The border-top and border-left rules are used to visibly separate the scrollbar from the parent.
+ * You'll probably just be changing the background and border colors.
+ */
 QScrollBar:horizontal {
 	border-top: 3px solid #262b30;
 	background: #262b30;
@@ -499,7 +502,7 @@ QScrollBar:vertical {
 	margin: 12px 0px;
 }
 
-/* scrollbar: trough clicky things */
+/* === TODO BELOW === */
 
 QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal,
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
