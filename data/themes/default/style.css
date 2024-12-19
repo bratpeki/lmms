@@ -2,19 +2,52 @@
  * LMMS style sheet *
  ********************/
 
-/* most foreground text items */
+/* === SECTION TITLE ===
+ * Description
+ */
+
+/* === DEVELOPMENT NOTES ===
+ * 1. Treat the user like an idiot
+ * 2. Keep the lines under 100 characters, if possible
+ */
+
+/* === FOREWORD ===
+ * Any images should not have their filenames changed.
+ * Keep the image resolution the same.
+ * Search key terms (scrollbar, explorer, mixer, etc).
+ */
+
+/* Text color of most foreground text items */
 QLabel, QTreeWidget, QListWidget, QGroupBox, QMenuBar, QCheckBox {
 	color: #d1d8e4;
 }
 
+/* === THE EXPLORER ===
+ * TODO: Are there any more tree views?
+ * You can change the background color of the explorer with the background-color rule.
+ */
 QTreeView {
+
+	/* No outline around names of items in the explorer */
 	outline: none;
+
+	/* ??? */
 	alternate-background-color: #111314;
+
 }
 
+/* === EXPLORER ITEMS ===
+ * An item in the explorer can be a folder,
+ * as well as a preset, sample or any other type of file.
+ */
 QTreeWidget::item {
 	padding: 1px;
 }
+
+/* === EXPLORER BRANCHES ===
+ * A branch is just a folder!
+ * These two rulesets affect hovering and selecting folders.
+ */
 
 QTreeWidget::item:hover,
 QTreeWidget::branch:hover {
@@ -28,6 +61,10 @@ QTreeWidget::branch:selected {
 	padding-left: 0px;
 }
 
+/* === FOLDER ICONS ===
+ * Icons left of the folder name, used for showing opened and closed folders
+ */
+
 QTreeView::branch:has-children:open {
 	border-image: url("resources:open_branch.png") 0;
 }
@@ -36,86 +73,170 @@ QTreeView::branch:has-children:closed {
 	border-image: url("resources:closed_branch.png") 0;
 }
 
+/* === SUBWINDOWS ===
+ * Subwindows in LMMS are editors, the mixer, notes, and the controller rack.
+ */
 QMdiArea {
 	background-color: #111314;
 }
 
+/* === BROWSER CHECKBOXES ===
+ * You can find these next to "User content", "Factory content" and "Hidden content".
+ */
 lmms--gui--FileBrowser QCheckBox
 {
 	font-size: 8pt;
 	color: white;
 }
 
+/* === KNOBS ===
+ * Any and all knobs in the program.
+ * Examples can be found on instrument and sample tracks, as volume and panning knobs,
+ * as well as on the mixer, instrument and sample effects.
+ */
 lmms--gui--Knob {
+
+	/*
+	 * Examples of inactive knobs include effect decay and effect gate knobs.
+	 *
+	 * The line refers to the line inside the knob.
+	 * The arc is the arc around the knob.
+	 */
 	qproperty-lineInactiveColor: rgb(120, 120, 120);
 	qproperty-arcInactiveColor: rgba(120, 120, 120, 70);
+
 }
 
+/* === AUTOMATION EDITOR === */
 lmms--gui--AutomationEditor {
+
+	/*
+	 * The color of the text fields to the left of the automation editing space
+	 * that display the values of the automated parameter
+	 */
 	color: #ffffff;
+
+	/*
+	 * Colors of the background
+	 *
+	 * 'background-color' is applied the background of the automation editor.
+	 * 'qproperty-backgroundShade' is applied afterwards, to each each even column.
+	 */
 	background-color: #141616;
 	qproperty-backgroundShade: rgba(255, 255, 255, 15);
-	qproperty-nodeInValueColor: rgba(103, 73, 194, 150);
-	qproperty-nodeOutValueColor: rgba(125, 40, 40, 150);
-	qproperty-nodeTangentLineColor: rgba(200, 200, 200, 255);
-	qproperty-crossColor: rgba(215, 210, 254, 150);
-	/* Grid colors */
-	qproperty-lineColor: #292929;
-	qproperty-beatLineColor: #4a3bba;
-	qproperty-barLineColor: #8173fe;
 
+	/* The color of the nodes */
+	qproperty-nodeInValueColor: rgba(103, 73, 194, 150);
+
+	/* The color of the outValues nodes */
+	qproperty-nodeOutValueColor: rgba(125, 40, 40, 150);
+
+	/* Color of the tangent line, when they're enabled */
+	qproperty-nodeTangentLineColor: rgba(200, 200, 200, 255);
+
+	/* The color of the horizontal and vertical line that follow the cursor */
+	qproperty-crossColor: rgba(215, 210, 254, 150);
+
+	/*
+	 * Grid colors
+	 *
+	 * barLineColor applies to the vertical bar lines (at 1, 2, 3, etc).
+	 * beatLineColor applies to the vertical beat lines and dotted horizontal lines, for some reason.
+	 * lineColor applies to the remaining vertical lines.
+	 */
+	qproperty-barLineColor: #8173fe;
+	qproperty-beatLineColor: #4a3bba;
+	qproperty-lineColor: #292929;
+
+	/* The color of the area under the automation curve */
 	qproperty-graphColor: rgba(69,42,153,180);
+
+	/* The side section where the values of the automated parameter are */
 	qproperty-scaleColor: #262b30;
+
+	/* Ghost notes and ghost samples appear when detuning MIDI editor notes */
 	qproperty-ghostNoteColor: rgba(248, 248, 255, 125);
-	qproperty-detuningNoteColor: rgba(248, 11, 11, 125);
+
+	/* Color of the ghost sample track */
 	qproperty-ghostSampleColor: rgba(125, 125, 125, 125);
+
+	/* The note from the MIDI editor being detuned */
+	qproperty-detuningNoteColor: rgba(248, 11, 11, 125);
+
 }
 
-/* text box */
-
+/* === TEXT BOX BORDERS
+ * E.g. borders around explorer search bars, instrument names and some settings
+ */
 QLineEdit {
 	border-radius: 4px;
 	border: 1px;
 	background: #101213;
 }
 
+/*
+ * >line edit
+ * >read-only
+ * >???
+ */
 QLineEdit:read-only {
 	border-style: none;
 	background: transparent;
 }
 
-/* text box when it wants text */
-
+/* Text boxes when they're focused (that is, when they're accepting text) */
 QLineEdit:focus {
 	border: 1px solid #0bd556;
 }
 
-/* Set color and selection background color for various inputs.
-   SpinBoxes are used in QInputDialogs */
-
+/* === CURRENTLY EDITING TEXT ===
+ * This rule is applied to any text when it is being edited,
+ * and sets the text color and selection background of said text.
+ *
+ * E.g:
+ * - mixer track names,
+ * - sample, instrument and Beat&Bassline track names,
+ * - numeric value input when double-clicking on parameters,
+ * - instrument names
+ * - explorer search bars
+ *
+ * (Developers, SpinBoxes are used in QInputDialogs.)
+ */
 QTextEdit, QLineEdit:focus, QComboBox:focus, QSpinBox:focus, QDoubleSpinBox:focus {
 	color: #d1d8e4;
 	selection-background-color: #17793b;
 }
 
+/* === TOOLTIPS ===
+ * For the unaware, tooltips are the informative text that appears
+ * when you hover over certain buttons, faders, etc.
+ *
+ * Not all users are gonna see this.
+ * It depends on whether or not they've toggled "Enable tooltips" in the settings.
+ */
 QToolTip {
 	border-radius: 4px;
-	background: #040506;
+	background: #040506; /* TODO: background-color? */
 	color: #d1d8e4;
 }
 
+/* === KNOB VALUE BOXES ===
+ * Same as the tooltips, but this appears for knobs and shows their values.
+ * Preferably, set it to the be the same colors as the tooltip.
+ */
 lmms--gui--TextFloat, lmms--gui--SimpleTextFloat {
-	background: #040506;
+	background: #040506; /* TODO: background-color? */
 	color: #d1d8e4;
 }
 
-
-/* splash screen text */
+/* === SPLASH SCREEN TEXT === */
 QSplashScreen QLabel {
 	color: white;
 }
 
-
+/* === TOPBAR MENU ===
+ * The menu options in the top-left corner (File, Edit, View, etc).
+ */
 QMenu {
 	border-top: 2px solid #08993E;
 	background-color: #15191c;
@@ -128,27 +249,32 @@ QMenu::separator {
 	margin-right: 0px;
 }
 
+/* A single item in the menu */
 QMenu::item {
 	color: #d1d8e4;
 	padding: 2px 35px 2px 23px;
 	margin: 3px 0px 3px 0px;
 }
 
+/* The item in the menu you're hovering over */
 QMenu::item:selected {
 	color: #d1d8e4;
 	background-color: #21272b;
 }
 
+/* Disabled items (e.g. undo and redo menu options) */
 QMenu::item:disabled {
 	color: #515459;
 	background-color: #262b30;
 	padding: 4px 32px 4px 20px;
 }
 
+/* The menu item icon (e.g. cog next to "Settings". Usually, you won't touch this. */
 QMenu::icon {
 	margin: 3px;
 }
 
+/* Used for the toggleable menu items, such as "Volume as dBFS" */
 QMenu::indicator {
 	width: 16;
 	height: 16;
@@ -158,99 +284,220 @@ QMenu::indicator {
 	background-color: #101213;
 }
 
+/* The toggleable items that are on */
 QMenu::indicator:checked {
 	image: url("resources:apply.png");
 }
 
+/* The toggleable item you're hovering over */
 QMenu::indicator:selected {
 	image: url("resources:apply-selected.png");
 	border: 1px solid #101213;
 	background-color: #101213;
 }
 
+/* === PLAYHEAD === */
 lmms--gui--PositionLine {
 	qproperty-tailGradient: true;
 	qproperty-lineColor: rgb(255, 255, 255);
 }
 
+/* === PIANO ROLL (MIDI EDITOR) ===
+ * "Key" refers to the graphical piano key to the left of the piano roll.
+ * "Note editor" refers to the right part of the piano roll window, where notes are placed.
+ * "Note" refers to the MIDI note in the note editor.
+ * "Velocity/panning editor" is the thing at the bottom of the piano roll, with the lollipops.
+ */
 lmms--gui--PianoRoll {
+
+	/* Used for the background of both the note editor and the velocity/panning editor */
 	background-color: #141616;
+
+	/* The background color of the even columns of the note editor */
 	qproperty-backgroundShade: rgba(255, 255, 255, 10);
+
+	/* The color of the text left of the velocity/panning editor */
 	qproperty-noteModeColor: #0bd556;
+
+	/* Note color; also used for the velocity/panning lollipop heads! */
 	qproperty-noteColor: #0bd556;
-	qproperty-stepNoteColor: #9b1313;
-	qproperty-currentStepNoteColor: rgb(245, 3, 139);
+
 	qproperty-noteTextColor: #ffffff;
+
 	qproperty-noteOpacity: 165;
-	qproperty-noteBorders: false; /* boolean property, set false to have borderless notes */
+
+	/*
+	 * Toggles the borders around notes.
+	 * It uses the same color as notes (noteColor), but at the maximum opacity of 255.
+	 */
+	qproperty-noteBorders: false;
+
+	/* Notes in the MIDI editor made by the Beat&Bassline editor */
+	/* TODO: It's called the "Pattern editor" now, right? */
+	qproperty-stepNoteColor: #9b1313;
+
 	qproperty-selectedNoteColor: #064d79;
+
+	/*
+	 * These apply to the ghost notes.
+	 * Same logic as with the regular notes, just follow the names.
+	 */
 	qproperty-ghostNoteColor: #1e1e1e;
 	qproperty-ghostNoteTextColor: #ffffff;
 	qproperty-ghostNoteOpacity: 60;
 	qproperty-ghostNoteBorders: false;
+
+	/* Color of the velocity/panning lollipop bars */
 	qproperty-barColor: #078f3a;
+
+	/* Markings on key lines. Used for marking stuff like scales */
 	qproperty-markedSemitoneColor: rgba(255, 255, 255, 30);
+
+	/* The line drawn by the knife-cut tool (from the wrench button dropdown) */
 	qproperty-knifeCutLine: rgba(255, 0, 0, 255);
-	/* Piano keys */
+
+	/* Horizontal width of the white keys */
 	qproperty-whiteKeyWidth: 64;
+
+	/*
+	 * "Active keys" are the keys of the note
+	 * currently being placed into the editor or played back.
+	 */
+
+	/* Text color of the active key */
 	qproperty-whiteKeyActiveTextColor: #000;
+
+	/* Shadow of the same text as above */
 	qproperty-whiteKeyActiveTextShadow: #fff;
+
+	/*
+	 * Gradient of the key, when its note is being placed into the editor.
+	 *
+	 * The gradient is applied to the actual "white space" on the key.
+	 * Usually, you'll only want to change the two specified colors.
+	 * In the case of all Qt linear gradients,
+	 * the color switches from the left color to the right one.
+	 *
+	 * If you don't want a gradient, just use a regular color!
+	 */
 	qproperty-whiteKeyActiveBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #3ac467, stop:1 #3dd671);
+
+	/*
+	 * Inactive keys are all the playable keys that aren't the active keys.
+	 * The same logic applies as with the active keys, just follow the names.
+	 */
+
 	qproperty-whiteKeyInactiveTextColor: #000;
 	qproperty-whiteKeyInactiveTextShadow: #fff;
 	qproperty-whiteKeyInactiveBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #d6d6d6, stop:1 #e3e3e3);
+
+	/*
+	 * The user can disable certain note ranges,
+	 * by dragging the two pivots at the beginning and end of the instrument keyboard,
+	 * at the bottom of the instrument.
+	 * This rule applies to the keys of those disabled notes.
+	 */
 	qproperty-whiteKeyDisabledBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #a0a0a0, stop:1 #b0b0b0);
+
+	/* Same logic as above, just applied to the black keys */
 	qproperty-blackKeyWidth: 48;
 	qproperty-blackKeyActiveBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #3ac467, stop:1 #3dd671);
 	qproperty-blackKeyInactiveBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #262626, stop:1 #313131);
 	qproperty-blackKeyDisabledBackground: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #606060, stop:1 #505050);
 
-	/* Grid colors */
-	qproperty-lineColor: #292929;
-	qproperty-beatLineColor: #2d6b45;
+	/*
+	 * Grid colors
+	 * barLineColor refers to the vertical bar lines (at 0, 1, 2, 3, etc).
+	 * beatLineColor refers to the vertical beat lines and horizontal octave separation lines.
+	 * lineColor refers to the horizontal, as well as the remaining vertical lines.
+	 */
 	qproperty-barLineColor: #42a065;
+	qproperty-beatLineColor: #2d6b45;
+	qproperty-lineColor: #292929;
 
-	/* Text on the white piano keys */
-	qproperty-textColor: #000;
-	qproperty-textColorLight: #0bd556;
-	qproperty-textShadow: #fff;
+	/*
+	 * Text on the white piano keys
+	 * (TODO: I'm fairly certain these don't do anything, but I'll have to check)
+	 */
+	qproperty-textColor: #000; /* TODO: Sounds like whiteKeyActiveTextColor */
+	qproperty-textColorLight: #0bd556; /* ??? */
+	qproperty-textShadow: #fff; /* TODO: Sounds like whiteKeyActiveTextShadow */
 }
 
+/* === INSTRUMENT TABS ===
+ * Used by all LMMS instrument plugins (TripleOsc, LB302, ZynAddSubFX, etc) when coloring
+ * the tabs (Instrument settings, ADSR, note stacking, effects, MIDI and tuning).
+ */
 lmms--gui--TabWidget {
+
+	/* Background color; Also affects the gradient of the ADSR (from black to this color) */
 	background-color: #262b30;
+
+	/* Sub-tab names (e.g. "VOLUME", "CUTOFF" and "RESO" in the ADSR tab) */
 	qproperty-tabText: rgba(255, 255, 255, 180);
+
+	/* Pretty much only the "TARGET" text in the ADSR tab */
 	qproperty-tabTitleText: #fff;
+
+	/* Background of the selected tab and sub-tab buttons */
 	qproperty-tabSelected: #1c4933;
+
+	/* Sub-tab text color (e.g. "VOLUME", "CUTOFF" and "RESO") */
 	qproperty-tabTextSelected: rgba(255, 255, 255, 255);
+
+	/* Background color of the tab and sub-tab strips */
 	qproperty-tabBackground: #181b1f;
+
+	/* Tab and sub-tab border colors */
 	qproperty-tabBorder: #181b1f;
+
 }
 
+/* === GROUP BOXES ===
+ * Examples of group boxes include:
+ * - The effect chain
+ * - The filter, stacking, arpeggio, MIDI and tuning boxes in the instrument settings
+ */
 lmms--gui--GroupBox {
 	background-color: #262b30;
 }
 
-/* main toolbar oscilloscope - can have transparent bg now */
-
+/* === TOOLBAR OSCILLOSCOPE ===
+ * The waveform display at the top of the LMMS UI
+ */
+/* TODO: "main toolbar oscilloscope - can have transparent bg now" can it really? */
 lmms--gui--Oscilloscope {
-	background: none;
-	border: none;
+
+	background: none; /* TODO: This doesn't do anything??? */
+	border: none; /* TODO: This doesn't do anything??? */
+
+	/*
+	 * The color of the channels in the general case, and if they're clipping.
+	 * If you care about making the oscilloscope "stereo-friendly",
+	 * use different colors for the left and right channels.
+	 */
 	qproperty-leftChannelColor: rgb(71, 253, 133);
 	qproperty-rightChannelColor: rgb(238, 253, 71);
 	qproperty-otherChannelsColor: rgb(71, 235, 253);
 	qproperty-clippingColor: rgb(255, 64, 64);
+
 }
 
-/* main toolbar cpu load widget - this can have transparent bg now */
-
+/* === CPU LOAD ===
+ * Located under the oscilloscope.
+ * Here, you'll probably just change the PNG, not this CSS part.
+ */
+ /* TODO: "main toolbar cpu load widget - this can have transparent bg now" how? */
 lmms--gui--CPULoadWidget {
 	border: none;
 	background: url("resources:cpuload_bg.png");
 	qproperty-stepSize: 1;
 }
 
-/* scrollbar: trough */
-
+/* === SCROLLBARS ===
+ * The border-top and border-left rules are used to visibly separate the scrollbar from the parent.
+ * You'll probably just be changing the background and border colors.
+ */
 QScrollBar:horizontal {
 	border-top: 3px solid #262b30;
 	background: #262b30;
@@ -264,8 +511,11 @@ QScrollBar:vertical {
 	margin: 12px 0px;
 }
 
-/* scrollbar: trough clicky things */
-
+/*
+ * Changes the background color of the scrollbars in subwindows
+ * "Isn't that just the background property of the two rules above?"
+ * Yes. Don't touch this.
+ */
 QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal,
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
 	background: none;
@@ -276,23 +526,40 @@ QScrollBar::add-page:vertical:pressed, QScrollBar::sub-page:vertical:pressed {
 	background: rgba(0,0,0,50);
 }
 
-/* scrollbar: handles (sliders) */
-
+/* === SCROLLBAR SLIDERS ===
+ * There are unique sliders for horizontal and vertical sliders.
+ * Of course, if you want them to be identical, combine them, much like:
+ * QScrollBar::handle:horizontal, QScrollBar::handle:vertical { ... }
+ */
 QScrollBar::handle:horizontal {
+
+	/* Color of the slider */
 	background: #5d6b77;
+
+	/* The slider border, ie. 1px solid #444 */
 	border: none;
+
+	/* Setting this to 0px makes the slider a rectangle */
 	border-radius: 4px;
+
+	/* The slider's minimum width */
 	min-width: 24px;
 }
 
+/* The color of the slider when you hover over it */
 QScrollBar::handle:horizontal:hover {
 	background: #b8c4d1;
 }
-
+/* The color of the slider when you, who would've guessted, press it */
 QScrollBar::handle:horizontal:pressed {
 	background: #ffffff;
 }
 
+/*
+ * Same logic as above, just for the vertical slider
+ * Again, if you wanna use the same colors and everything,
+ * just follow what the section header says.
+ */
 QScrollBar::handle:vertical {
 	background: #5d6b77;
 	border: none;
@@ -308,20 +575,26 @@ QScrollBar::handle:vertical:pressed {
 	background: #ffffff;
 }
 
+/* TODO: No idea how this works */
 QScrollBar::handle:horizontal:disabled, QScrollBar::handle:vertical:disabled  {
 	background: #262b30;
 	border-radius: 1px;
 	border: none;
 }
 
+/*
+ * If there are too few effects for the scrollbar to be needed, it is disabled.
+ * The rules are the same as for the previously defined sliders.
+ */
 lmms--gui--EffectRackView QScrollBar::handle:vertical:disabled  {
 	background: #3f4750;
 	border: none;
 	border-radius: 4px;
 }
 
-/* arrow buttons */
-
+/* === SCROLLBAR ARROW BUTTONS ===
+ * Buttons at the edge of the scrollbar
+ */
 QScrollBar::add-line, QScrollBar::sub-line {
 	background: #262b30;
 	border-radius: 0px;
@@ -329,10 +602,21 @@ QScrollBar::add-line, QScrollBar::sub-line {
 	subcontrol-origin: margin;
 }
 
+/*
+ * These control the button width and position.
+ * I doubt you'll touch this, but
+ * if you wanna change the width or background of the buttons, change it here,
+ */
 QScrollBar::add-line:horizontal 	{  	subcontrol-position: right; width: 12px;}
 QScrollBar::sub-line:horizontal 	{ 	subcontrol-position: left; width: 12px;}
 QScrollBar::add-line:vertical 		{ 	subcontrol-position: bottom; height: 12px;}
 QScrollBar::sub-line:vertical 		{ 	subcontrol-position: top; height: 12px;}
+
+/*
+ * These are reserved for when you hover and click on the buttons,
+ * as well as when they're disabled.
+ * You'll notice they're all set to the same color by default.
+ */
 
 QScrollBar::add-line:hover, QScrollBar::sub-line:hover {
 	background: #262b30;
@@ -346,7 +630,7 @@ QScrollBar::add-line:disabled, QScrollBar::sub-line:disabled {
 	background: #262b30;
 }
 
-/* arrow button arrows */
+/* The arrows (little triangles, that is) in the buttons */
 
 QScrollBar::left-arrow:horizontal, QScrollBar::right-arrow:horizontal,
 QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
@@ -364,6 +648,11 @@ QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
 	margin-left: 3px;
 }
 
+/*
+ * Relative paths for the images of the arrows
+ * As a suggestion, don't touch this. Just change the images to suit your needs.
+ */
+
 QScrollBar::left-arrow:horizontal { background-image: url("resources:sbarrow_left.png");}
 QScrollBar::right-arrow:horizontal { background-image: url("resources:sbarrow_right.png");}
 QScrollBar::up-arrow:vertical { background-image: url("resources:sbarrow_up.png");}
@@ -375,44 +664,59 @@ QScrollBar::down-arrow:vertical:disabled { background-image: url("resources:sbar
 lmms--gui--EffectRackView QScrollBar::up-arrow:vertical:disabled { background-image: url("resources:sbarrow_up.png");}
 lmms--gui--EffectRackView QScrollBar::down-arrow:vertical:disabled { background-image: url("resources:sbarrow_down.png");}
 
-/* background for song editor and pattern editor */
-
+/* Background color of the Song- and Pattern Editor */
 lmms--gui--TrackContainerView QFrame {
 	background-color: #262b30;
 }
 
-/* background for track controls */
+/*
+ * Background color of the track controls
+ * (ie. the leftmost part of the track, where the track name and properties are)
+ */
 lmms--gui--TrackView > QWidget {
 	background-color: #3B424A;
 }
 
+/* TODO: autoscroll, loop, stop behaviour toggle buttons */
 
-/* autoscroll, loop, stop behaviour toggle buttons */
-
-/* track background config */
+/* === TRACK CONTENT SPACE ===
+ * The space right of the track controls,
+ * where all the MIDI, pattern, sample and automation clips are.
+ */
 lmms--gui--TrackContentWidget {
-	/* colors */
+
+	/* Colors of the alternating beats */
 	qproperty-darkerColor: #0C0E0F;
 	qproperty-lighterColor: #14151A;
+
+	/* Separates each beats */
 	qproperty-coarseGridColor: #3C444C;
+
+	/* Separates each fine distance by quantization (1/2, 1/4 bar, etc) */
 	qproperty-fineGridColor: #262B30;
+
+	/* Separates tracks */
 	qproperty-horizontalColor: #3C444C;
+
+	/* TODO: No idea */
 	qproperty-embossColor: rgba(0, 0, 0, 0);
-	
-	/* line widths */
-	qproperty-coarseGridWidth: 2;
-	qproperty-fineGridWidth: 1;
-	qproperty-horizontalWidth: 1;
-	qproperty-embossWidth: 0;
-	
-	/* positive offset shifts emboss to the right */
+
+	/* Separator line widths */
+	qproperty-coarseGridWidth: 2px;
+	qproperty-fineGridWidth: 1px;
+	qproperty-horizontalWidth: 1px;
+	qproperty-embossWidth: 0px;
+
+	/* positive offset shifts emboss to the right (TODO: ??? also, 0px) */
 	qproperty-embossOffset: 0;
+
 }
 
+/* === TRACK OPERATIONS (THE GEAR BUTTON IN TRCAK CONTROLS) ===
+ * I don't believe you have any use from changing these three rulesets, code wise.
+ */
 
-/* gear button in tracks */
-
-lmms--gui--TrackOperationsWidget QPushButton {
+lmms--gui--TrackOperationsWidget > QPushButton {
 	max-height: 26px;
 	max-width: 26px;
 	min-height: 26px;
@@ -421,7 +725,7 @@ lmms--gui--TrackOperationsWidget QPushButton {
 	border: none;
 }
 
-lmms--gui--TrackOperationsWidget QPushButton::menu-indicator {
+lmms--gui--TrackOperationsWidget > QPushButton::menu-indicator {
 	image: url("resources:trackop.png");
 	subcontrol-origin: padding;
 	subcontrol-position: center;
@@ -429,21 +733,32 @@ lmms--gui--TrackOperationsWidget QPushButton::menu-indicator {
 	top: 1px;
 }
 
-lmms--gui--TrackOperationsWidget QPushButton::menu-indicator:pressed,
-lmms--gui--TrackOperationsWidget QPushButton::menu-indicator:checked {
+lmms--gui--TrackOperationsWidget > QPushButton::menu-indicator:pressed,
+lmms--gui--TrackOperationsWidget > QPushButton::menu-indicator:checked {
 	image: url("resources:trackop.png");
 	position: relative;
 	top: 2px;
 }
 
-/* font sizes */
+/* === FONT SIZES ===
+ * Currently used only for SF2Player
+ */
 
+/* The text in the boxes next to "FILE" and "PATCH" */
 lmms--gui--Sf2InstrumentView > QLabel {
 	font-size:10px;
 }
 
-/* main toolbar sliders (master vol, master pitch) */
+/* === TODO BELOW === */
 
+/* === MAIN TOOLBAR SLIDERS ===
+ * This covers:
+ * - the master volume vertical slider,
+ * - the transposition vertical slider and
+ * - the zoom slider (TODO: Zoom isn't even on the toolbar???)
+ * The groove refers to the long vertical line the handle moves in.
+ * The handle refers to the sliding element in the slider.
+ */
 lmms--gui--AutomatableSlider::groove:vertical {
 	background: #040506;
 	border: none;
@@ -602,11 +917,17 @@ lmms--gui--TrackLabelButton:hover {
 	background: #3B424A;
 	border: 1px solid #515B66;
 	border-radius: none;
+	font-size: 11px;
+	font-weight: normal;
+	padding: 2px 1px;
 }
 
 lmms--gui--TrackLabelButton:pressed {
 	background: #262B30;
 	border-radius: none;
+	font-size: 11px;
+	font-weight: normal;
+	padding: 2px 1px;
 }
 
 lmms--gui--TrackLabelButton:checked {
@@ -614,12 +935,17 @@ lmms--gui--TrackLabelButton:checked {
 	background: #1C1F24;
 	background-image: url("resources:track_shadow_p.png");
 	border-radius: none;
+	font-size: 11px;
+	font-weight: normal;
+	padding: 2px 1px;
 }
 
 lmms--gui--TrackLabelButton:checked:pressed {
 	border: 1px solid #2f353b;
 	background: #0e1012;
 	background-image: url("resources:track_shadow_p.png");
+	font-size: 11px;
+	padding: 2px 1px;
 	font-weight: solid;
 }
 
@@ -836,21 +1162,6 @@ lmms--gui--SubWindow > QPushButton:hover{
 	border-radius: 2px;
 }
 
-/* Instrument */
-
-/* Envelope graph */
-lmms--gui--EnvelopeGraph {
-	qproperty-noAmountColor: rgb(96, 91, 96);
-	qproperty-fullAmountColor: rgb(0, 255, 128);
-	qproperty-markerFillColor: rgb(153, 175, 255);
-	qproperty-markerOutlineColor: rgb(0, 0, 0);
-}
-
-/* LFO graph */
-lmms--gui--LfoGraph {
-	qproperty-noAmountColor: rgb(96, 91, 96);
-	qproperty-fullAmountColor: rgb(0, 255, 128);
-}
 
 /* Plugins */
 
