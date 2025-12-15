@@ -57,7 +57,7 @@ class ControllerRackView;
 
 const bpm_t MinTempo = 10;
 const bpm_t DefaultTempo = 140;
-const bpm_t MaxTempo = 999;
+const bpm_t MaxTempo = 9999;
 const tick_t MaxSongLength = 9999 * DefaultTicksPerBar;
 
 
