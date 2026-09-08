@@ -1270,7 +1270,7 @@ void FileItem::determineFileType()
 		m_type = FileType::InstrumentPreset;
 		m_handling = FileHandling::LoadAsInstrumentPreset;
 	}
-	else if (ext == "fxp")
+	else if (ext == "lfxp")
 	{
 		m_type = FileType::EffectPreset;
 		m_handling = FileHandling::LoadAsEffectPreset;
@@ -1355,7 +1355,7 @@ QString FileItem::extension(const QString & file )
 QString FileItem::defaultFilters()
 {
 	const auto projectFilters = QStringList{"*.mmp", "*.mpt", "*.mmpz"};
-	const auto presetFilters = QStringList{"*.xpf", "*.xml", "*.xiz", "*.lv2", "*.fxp", ".fxc"};
+	const auto presetFilters = QStringList{"*.xpf", "*.xml", "*.xiz", "*.lv2", "*.lfxp", ".fxc"};
 	const auto soundFontFilters = QStringList{"*.sf2", "*.sf3"};
 	const auto patchFilters = QStringList{"*.pat"};
 	const auto midiFilters = QStringList{"*.mid", "*.midi", "*.rmi"};

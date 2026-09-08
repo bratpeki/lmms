@@ -155,7 +155,7 @@ void EffectView::moveDown()
 
 void EffectView::savePreset()
 {
-	FileDialog sfd(this, tr("Save preset"), "", tr("FX Preset (*.fxp)"));
+	FileDialog sfd(this, tr("Save preset"), "", tr("LMMS FX Preset (*.lfxp)"));
 
 	QString presetRoot = ConfigManager::inst()->userPresetsDir();
 	if (!QDir(presetRoot).exists())
@@ -170,7 +170,7 @@ void EffectView::savePreset()
 	sfd.setAcceptMode(FileDialog::AcceptSave);
 	sfd.setDirectory(presetRoot + model()->displayName());
 	sfd.setFileMode(FileDialog::AnyFile);
-	sfd.setDefaultSuffix("fxp");
+	sfd.setDefaultSuffix("lfxp");
 
 	if (sfd.exec() == QDialog::Accepted
 			&& !sfd.selectedFiles().isEmpty()
@@ -199,7 +199,7 @@ void EffectView::savePreset()
 
 void EffectView::loadPreset()
 {
-	FileDialog sfd(this, tr("Load preset"), "", tr("FX Preset (*.fxp)"));
+	FileDialog sfd(this, tr("Load preset"), "", tr("LMMS FX Preset (*.lfxp)"));
 
 	QString presetRoot = ConfigManager::inst()->userPresetsDir();
 	if (!QDir(presetRoot).exists())
@@ -214,7 +214,7 @@ void EffectView::loadPreset()
 	sfd.setAcceptMode(FileDialog::AcceptOpen);
 	sfd.setDirectory(presetRoot + model()->displayName());
 	sfd.setFileMode(FileDialog::ExistingFile);
-	sfd.setDefaultSuffix("fxp");
+	sfd.setDefaultSuffix("lfxp");
 
 	if (sfd.exec() == QDialog::Accepted
 		&& !sfd.selectedFiles().isEmpty())
